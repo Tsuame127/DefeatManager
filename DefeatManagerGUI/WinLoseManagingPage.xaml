@@ -1,0 +1,338 @@
+﻿<Page x:Class="DefeatManagerGUI.WinLoseManagingPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:DefeatManagerGUI"
+      Height="500" Width="500"
+      Title="WinLoseManagingPage">
+
+    <Grid Background="#FF1B1B1B">
+        <Canvas>
+            <Rectangle HorizontalAlignment="Center"
+                   Height="75" 
+                   Width="500" 
+                   StrokeThickness="5" 
+                   Fill="#364f6b" Canvas.Top="30" VerticalAlignment="Top"/>
+
+
+            <Label x:Name="RemainingJokersLabel" Content="Jokers restants : 10" 
+               HorizontalAlignment="Left" 
+               VerticalAlignment="Center"
+               FontFamily="Yu Gothic UI Semibold" 
+               FontSize="20" 
+               Foreground="White" Canvas.Left="44" Canvas.Top="52" Width="187"/>
+
+            <Label x:Name="RemainingLossesLabel" Content="Défaites restante : 10" 
+               HorizontalAlignment="Left" 
+               VerticalAlignment="Center"
+               FontFamily="Yu Gothic UI Semibold" 
+               FontSize="20" 
+               Foreground="White" Canvas.Left="270" Canvas.Top="52" Width="220"/>
+
+            <ProgressBar x:Name="DefeatProgressBar" 
+                     HorizontalAlignment="Left" 
+                     Height="22" 
+                     VerticalAlignment="Top" 
+                     Width="306" 
+                     SmallChange="1" 
+                     Background="#FF8E3535" 
+                     BorderBrush="{x:Null}" Canvas.Left="97" Canvas.Top="130"/>
+
+            <Button x:Name="WinButton" 
+                Content="Victoire" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Top" 
+                Height="60" Width="120"  
+                Click="OnWinPressed" 
+                FontFamily="Yu Gothic UI" 
+                FontSize="22" 
+                Background="#FF3C822D" 
+                Foreground="WhiteSmoke"
+                Cursor="Hand"
+                BorderBrush="{x:Null}" Canvas.Right="270" Canvas.Top="190" Canvas.Left="112">
+
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="15"/>
+                    </Style>
+                </Button.Resources>
+
+                <Button.Style>
+
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border x:Name="Border" Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#FF6EB45F" TargetName="Border"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+
+                </Button.Style>
+            </Button>
+
+            <Button x:Name="LoseButton" 
+                Content="Défaite" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Top" 
+                Height="60" Width="120" 
+                Click="OnLosePressed" 
+                FontFamily="Yu Gothic UI" 
+                FontSize="22" 
+                Background="#FF8E3535" 
+                Foreground="WhiteSmoke" 
+                Cursor="Hand" Canvas.Left="270" Canvas.Top="190">
+
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="15"/>
+                    </Style>
+                </Button.Resources>
+
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="LightBlue" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border x:Name="Border" Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#FFCA5D5D" TargetName="Border"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+            </Button>
+
+            <CheckBox x:Name="JokerCheckBox" 
+                  Content="Utiliser un joker" 
+                  HorizontalAlignment="Center" 
+                  VerticalAlignment="Top" 
+                  FontFamily="Cascadia Mono SemiBold" 
+                  FontSize="16" 
+                  Foreground="#FFCECECE" Cursor="Hand" Background="#FFD4D4D4" BorderBrush="White" Canvas.Left="160" Canvas.Top="269"/>
+
+            <Button x:Name="RematchButton" 
+                Content="Rematch ?" 
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Top" 
+                Height="60" Width="135" 
+                Background="#FF364F6B" 
+                Foreground="White" 
+                Click="OnRematchButton" FontSize="18" Cursor="Hand" BorderBrush="{x:Null}" FontWeight="Bold" FontFamily="Yu Gothic UI" Canvas.Left="183" Canvas.Top="330">
+
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="15"/>
+                    </Style>
+                </Button.Resources>
+
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="LightBlue" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border x:Name="Border" Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#FF727FCA" TargetName="Border"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+            </Button>
+
+            <Button x:Name="NoRematchButton" 
+                Content="Non" 
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Bottom" 
+                Foreground="#FFEEF3FF" 
+                FontStyle="Normal" 
+                FontWeight="Bold" 
+                Click="OnNoRematchButton" 
+                Cursor="Hand" 
+                FontFamily="Yu Gothic UI" 
+                Background="{x:Null}" 
+                BorderBrush="{x:Null}" Canvas.Left="325" Canvas.Top="352">
+
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="ContentTemplate">
+                            <Setter.Value>
+                                <DataTemplate>
+                                    <TextBlock TextDecorations="Underline" Text="{TemplateBinding Content}"/>
+                                </DataTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border x:Name="Border" Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#00806161" TargetName="Border"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+            </Button>
+
+
+            <Rectangle HorizontalAlignment="Center" 
+                   Height="38" 
+                   VerticalAlignment="Top" 
+                   Width="48" 
+                   RadiusX="10" 
+                   RadiusY="10" 
+                   StrokeThickness="3" 
+                   Fill="#FF364F6B" Canvas.Left="400" Canvas.Top="201"/>
+
+            <Label x:Name="LoseCountLabel"
+               Content="0" 
+               HorizontalContentAlignment="Center" 
+               HorizontalAlignment="Left" 
+               VerticalAlignment="Top" 
+               Width="38" 
+               FontSize="20"
+               FontWeight="Bold"
+               Foreground="White" 
+               Background="{x:Null}"
+               FontFamily="Yu Gothic UI" Canvas.Left="406" Canvas.Top="202"/>
+
+            <Rectangle HorizontalAlignment="Center" 
+                   Height="38"
+                   VerticalAlignment="Top" 
+                   Width="48" 
+                   RadiusX="10"
+                   RadiusY="10" 
+                   StrokeThickness="3" 
+                   Fill="#FF364F6B" Canvas.Right="400" Canvas.Top="201" Canvas.Left="52"/>
+
+            <Label x:Name="WinCountLabel" 
+               Content="0" 
+               HorizontalContentAlignment="Center" 
+               HorizontalAlignment="Left" 
+               VerticalAlignment="Top" 
+               Width="38"
+               FontSize="20"
+               Foreground="White" 
+               Background="#00000000" 
+               FontWeight="Bold"
+               FontFamily="Yu Gothic UI" Canvas.Right="405" Canvas.Top="202" Canvas.Left="58"/>
+
+            <Button x:Name="RBWin" 
+                Content="Victoire" 
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Click="OnRadioButtonChecked"
+                FontSize="18"
+                VerticalContentAlignment="Center" 
+                Cursor="Hand" 
+                FontFamily="Yu Gothic UI Semibold" 
+                Width="75" 
+                Height="35" 
+                Background="#FF3C822D" 
+                BorderBrush="{x:Null}" 
+                Foreground="White"
+                FontWeight="Normal" Canvas.Right="270" Canvas.Top="410">
+
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+
+                <Button.Style>
+
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border x:Name="Border" Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#FF6EB45F" TargetName="Border"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+
+                </Button.Style>
+
+            </Button>
+
+            <Button x:Name="RBLose" 
+                Content="Défaite" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Click="OnRadioButtonChecked"
+                FontSize="18"
+                VerticalContentAlignment="Center" 
+                Cursor="Hand" 
+                FontFamily="Yu Gothic UI Semibold" 
+                Width="75" 
+                Height="35" 
+                Background="#FF8E3535" 
+                BorderBrush="{x:Null}"
+                Foreground="White"
+                FontWeight="Bold" Canvas.Left="270" Canvas.Top="410">
+
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="LightBlue" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border x:Name="Border" Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#FFCA5D5D" TargetName="Border"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </Canvas>
+    </Grid>
+</Page>
